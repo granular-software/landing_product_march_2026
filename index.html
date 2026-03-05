@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Granular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --bg: #f3ede5;
+    --surface: #f9f4ee;
+    --surface-strong: #fcf8f2;
+    --card-bg: #fbf7f2;
+    --ink: #131111;
+    --muted: #645f5b;
+    --muted-strong: #504b47;
+    --line: #d9d2ca;
+    --accent: #b6382a;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --card-border: 1px solid var(--line);
+    --card-shadow: 0 14px 30px rgba(19, 17, 17, 0.06);
+
+    --container: 980px;
+    --section-space: clamp(64px, 8vw, 118px);
+    --reading-width: 66ch;
+
+    --font-body: 'Manrope', sans-serif;
+    --font-display: 'Fraunces', serif;
+
+    --step--1: clamp(0.8rem, 0.76rem + 0.18vw, 0.92rem);
+    --step-0: clamp(1rem, 0.93rem + 0.28vw, 1.1rem);
+    --step-1: clamp(1.2rem, 1.08rem + 0.56vw, 1.42rem);
+    --step-2: clamp(1.5rem, 1.28rem + 0.9vw, 2rem);
+    --step-3: clamp(1.95rem, 1.58rem + 1.75vw, 3.08rem);
+    --step-4: clamp(2.45rem, 1.92rem + 2.7vw, 4.5rem);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background:
+      radial-gradient(circle at 12% 0%, #faf7f2 0%, var(--bg) 38%),
+      radial-gradient(circle at 88% 14%, #efe6db 0%, transparent 34%) fixed;
+    color: var(--ink);
+    line-height: 1.72;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: min(var(--container), calc(100% - 3rem));
+    margin-inline: auto;
+  }
+
+  .section {
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--line);
+  }
+
+  p { margin: 0; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.05rem;
+    font-weight: 700;
+  }
+
+  .display {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.16;
+    letter-spacing: -0.016em;
+    font-weight: 500;
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.82rem 1.35rem;
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .btn-ghost:hover,
+  .btn-ghost:focus-visible {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  .btn-command {
+    font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding-inline: 1rem;
+  }
+
+  .cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .btn:focus-visible,
+  .nav-doc:focus-visible,
+  .source-link:focus-visible,
+  .nav-links a:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 78%, white 22%);
+    outline-offset: 2px;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    background: color-mix(in srgb, var(--bg) 88%, white 12%);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-inner {
+    width: min(var(--container), calc(100% - 3rem));
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 72px;
+    gap: 1.1rem;
+  }
+
+  .nav-main {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-left: auto;
+    min-width: 0;
+  }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.7rem, 1.5vw, 1.2rem);
+    justify-content: flex-end;
+  }
+
+  .nav-links a {
+    color: var(--muted-strong);
+    text-decoration: none;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible { color: var(--ink); }
+
+  .wordmark {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .wordmark { flex-shrink: 0; }
+
+  .nav-doc {
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    color: var(--muted-strong);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .nav-doc:hover { color: var(--ink); }
+
+  .nav-doc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0.45rem 0.82rem;
+    border: 1px solid color-mix(in srgb, var(--line) 84%, #b8b0a8 16%);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, white 26%, var(--surface-strong) 74%);
+  }
+
+  .nav-doc:hover {
+    border-color: var(--ink);
+    background: color-mix(in srgb, white 34%, var(--surface-strong) 66%);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(86px, 13vw, 176px) clamp(84px, 10vw, 128px);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(1.4rem, 2.8vw, 2.25rem);
+    max-width: 900px;
+  }
+
+  .hero-h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    max-width: 24ch;
+  }
+
+  .hero-h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: var(--step-1);
+    max-width: var(--reading-width);
+    line-height: 1.62;
+    color: var(--muted-strong);
+  }
+
+  .hero .cta-group { margin-top: 0.15rem; }
+
+  .no-wrap-strong {
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .incidents .container { max-width: 900px; }
+
+  .incident-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  .incident-item {
+    padding: 1.05rem 1.15rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .incident-item:first-child { border-top: 0; }
+
+  .incident-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    align-items: start;
+  }
+
+  .incident-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .incident-date,
+  .incident-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .incident-date { color: var(--muted); }
+
+  .incident-tag {
+    color: var(--accent);
+    border: 1px solid currentColor;
+    padding: 0.19rem 0.44rem;
+  }
+
+  .incident-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.16rem, 1.02rem + 0.35vw, 1.34rem);
+    line-height: 1.34;
+    color: var(--ink);
+    max-width: 46ch;
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+
+  .source-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0.52rem 0.82rem;
+    border: 1px solid color-mix(in srgb, var(--line) 86%, #b7afa7 14%);
+    text-decoration: none;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--ink) 86%, var(--muted) 14%);
+    white-space: nowrap;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .source-link:hover,
+  .source-link:focus-visible {
+    border-color: var(--ink);
+    background: color-mix(in srgb, white 28%, var(--surface-strong) 72%);
+    transform: translateY(-1px);
+  }
+
+  .problem .display {
+    font-size: clamp(1.75rem, 1.45rem + 1.2vw, 2.55rem);
+    max-width: 22ch;
+  }
+
+  .problem em,
+  .interlude-text em,
+  .end h2 em { color: var(--accent); font-style: italic; }
+
+  .playground-sub,
+  .interlude-text {
+    margin-top: 0.9rem;
+    color: var(--muted-strong);
+    font-size: var(--step-0);
+    max-width: var(--reading-width);
+    line-height: 1.68;
+  }
+
+  .interlude-panel {
+    background: var(--card-bg);
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--card-shadow);
+    padding: clamp(1.2rem, 2.8vw, 2rem);
+    border-top: 3px solid var(--accent);
+  }
+
+  .interlude-text {
+    margin-top: 0;
+    font-size: var(--step-1);
+    line-height: 1.65;
+    color: var(--ink);
+    font-weight: 600;
+    max-width: 58ch;
+  }
+
+  .levels {
+    margin-top: 2rem;
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  .level {
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .level:first-child { border-top: 0; }
+
+  .level-num {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 3.8vw, 2.35rem);
+    color: color-mix(in srgb, var(--line) 65%, #b7aea6 35%);
+    line-height: 1;
+  }
+
+  .level-label {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .level-title {
+    margin: 0 0 0.7rem;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.2;
+    color: var(--ink);
+    font-weight: 500;
+    max-width: 26ch;
+  }
+
+  .level-body {
+    font-size: var(--step-0);
+    color: var(--muted-strong);
+    max-width: var(--reading-width);
+    line-height: 1.7;
+  }
+
+  .level-example {
+    margin-top: 1rem;
+    padding: 0.92rem 1rem;
+    border: var(--card-border);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--surface) 78%, white 22%);
+    font-size: var(--step--1);
+    color: var(--muted-strong);
+    line-height: 1.74;
+    max-width: 64ch;
+  }
+
+  .level-example strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .level-example .blocked {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .code-lead {
+    max-width: 22ch;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 1.54rem + 1.45vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.016em;
+    font-weight: 500;
+  }
+
+  .code-group { margin-top: 0.9rem; }
+
+  .col-label {
+    display: inline-block;
+    margin: 2.1rem 0 0.85rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, white 90%);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line) 70%);
+    border-radius: 999px;
+    padding: 0.34rem 0.72rem;
+  }
+
+  .code-win {
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+    box-shadow: 0 16px 34px rgba(19, 17, 17, 0.2);
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+  }
+
+  .code-bar {
+    background: #181816;
+    border-bottom: 1px solid #252523;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .d { width: 9px; height: 9px; border-radius: 50%; }
+  .dr { background: #dc6b5a; }
+  .dy { background: #d4a040; }
+  .dg { background: #68a868; }
+
+  .code-fname {
+    font-size: 0.67rem;
+    color: #79766f;
+    margin-left: 6px;
+    letter-spacing: 0.04em;
+    flex: 1;
+  }
+
+  .code-hint {
+    color: #9f9c95;
+    font-size: 0.65rem;
+  }
+
+  .code-body {
+    padding: 1.2rem 1.4rem;
+    font-size: 0.78rem;
+    line-height: 1.78;
+    white-space: pre;
+    overflow-x: auto;
+    color: #b8b4ac;
+  }
+
+  .code-body .cln { display: inline-block; width: 1.8rem; color: #2e2e2c; user-select: none; }
+  .code-body .k { color: #9a7ac8; }
+  .code-body .s { color: #8fc49a; }
+  .code-body .n { color: #d4a86a; }
+  .code-body .cm { color: #56544f; }
+  .code-body .fn { color: #d4a86a; }
+  .code-body .err { color: #b83a24; }
+
+  .end {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(74px, 10vw, 118px);
+    text-align: center;
+  }
+
+  .end h2 {
+    margin: 0 auto 2rem;
+    max-width: 16ch;
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.06;
+    letter-spacing: -0.018em;
+    font-weight: 500;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 780px) {
+    .container,
+    .nav-inner { width: min(var(--container), calc(100% - 2rem)); }
+
+    .nav-inner {
+      min-height: 66px;
+      gap: 0.8rem;
+    }
+
+    .nav-main {
+      min-width: 0;
+      gap: 0.7rem;
+    }
+
+    .nav-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .hero {
+      padding-top: 72px;
+      padding-bottom: 76px;
+    }
+
+    .hero-h1 {
+      max-width: 20ch;
+      line-height: 1.04;
+    }
+
+    .hero-sub {
+      font-size: var(--step-0);
+      max-width: 60ch;
+      line-height: 1.66;
+    }
+
+    .incident-head {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .source-link { justify-self: start; }
+
+    .level { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    .btn { width: 100%; }
+
+    .nav-inner {
+      min-height: 62px;
+      gap: 0.75rem;
+    }
+
+    .wordmark {
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-main { gap: 0.5rem; }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    .incident-item { padding: 0.95rem; }
+
+    .cta-group { gap: 0.6rem; }
+
+    .hero-h1 {
+      font-size: clamp(2.15rem, 9.5vw, 2.9rem);
+      max-width: 16ch;
+    }
+
+    .problem .display,
+    .playground .display,
+    .code-lead,
+    .end h2 {
+      font-size: clamp(1.55rem, 7.5vw, 2.2rem);
+      line-height: 1.16;
+    }
+
+    .col-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.11em;
+      padding: 0.3rem 0.62rem;
+    }
+
+    .code-body {
+      font-size: 0.72rem;
+      padding: 1rem;
+    }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="wordmark">Granular</a>
+    <div class="nav-main">
+      <ul class="nav-links">
+        <li><a href="#incidents">Incidents</a></li>
+        <li><a href="#risk">Risk</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#code-path">Code</a></li>
+      </ul>
+      <a href="https://docs.granular.dev" class="nav-doc">Docs →</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <h1 class="hero-h1">
+      If your agent can do it,<br />
+      <em>you can be sure it will.</em>
+    </h1>
+    <p class="hero-sub">You gave it tools. You gave it instructions. Somewhere in that combination is something you didn't think of. <span class="no-wrap-strong">There always is.</span></p>
+    <div class="cta-group">
+      <a href="#solution" class="btn btn-primary">See how to make it impossible ↓</a>
+    </div>
+  </div>
+</header>
+
+<section class="section incidents reveal" id="incidents">
+  <div class="container">
+    <span class="eyebrow">This is not theoretical.</span>
+    <ul class="incident-list">
+      <li class="incident-item">
+        <div class="incident-head">
+          <div>
+            <div class="incident-meta">
+              <span class="incident-date">March 2026</span>
+              <span class="incident-tag">Silent failure</span>
+            </div>
+            <h3 class="incident-title">Agent began issuing refunds outside policy. Nobody noticed for weeks.</h3>
+          </div>
+          <a href="https://www.cnbc.com/2026/03/01/ai-artificial-intelligence-economy-business-risks.html" target="_blank" rel="noopener noreferrer" class="source-link">Source →</a>
+        </div>
+      </li>
+      <li class="incident-item">
+        <div class="incident-head">
+          <div>
+            <div class="incident-meta">
+              <span class="incident-date">February 2026</span>
+              <span class="incident-tag">Operational failure</span>
+            </div>
+            <h3 class="incident-title">An AI agent ran amok on a security researcher's inbox, sending emails autonomously.</h3>
+          </div>
+          <a href="https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/" target="_blank" rel="noopener noreferrer" class="source-link">Source →</a>
+        </div>
+      </li>
+      <li class="incident-item">
+        <div class="incident-head">
+          <div>
+            <div class="incident-meta">
+              <span class="incident-date">February 2026</span>
+              <span class="incident-tag">Data exposure</span>
+            </div>
+            <h3 class="incident-title">124 emails including Social Security Numbers transferred to a stranger.</h3>
+          </div>
+          <a href="https://arxiv.org/abs/2602.20021" target="_blank" rel="noopener noreferrer" class="source-link">Source →</a>
+        </div>
+      </li>
+      <li class="incident-item">
+        <div class="incident-head">
+          <div>
+            <div class="incident-meta">
+              <span class="incident-date">November 2025</span>
+              <span class="incident-tag">Unauthorized access</span>
+            </div>
+            <h3 class="incident-title">Autonomous agent accessed private customer accounts. $260,000+ in documented damages.</h3>
+          </div>
+          <a href="https://ismg-cdn.nyc3.cdn.digitaloceanspaces.com/asset_files/external/cand-259514-complaint-nov42025.pdf" target="_blank" rel="noopener noreferrer" class="source-link">Source →</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section problem reveal" id="risk">
+  <div class="container">
+    <h2 class="display">The more complex your agent, <em>the more certain this becomes.</em></h2>
+  </div>
+</section>
+
+<section class="section playground reveal" id="solution">
+  <div class="container">
+    <h2 class="display">What if you make it impossible by design?</h2>
+    <p class="playground-sub">Granular agents are constrained by three structural layers.</p>
+
+    <div class="levels">
+      <article class="level">
+        <span class="level-num">01</span>
+        <div>
+          <span class="level-label">Scope</span>
+          <h3 class="level-title">The agent sees exactly what the user can do. No more.</h3>
+          <p class="level-body">On each request, the agent only sees what that user is allowed to access. It does not browse a global system. If a resource is outside that user's scope, the agent cannot see it or act on it.</p>
+          <div class="level-example">
+            <strong>A sales rep's agent</strong> sees their accounts, their pipeline, their contacts.<br />
+            It cannot touch another rep's data, because that data is never in scope.
+          </div>
+        </div>
+      </article>
+
+      <article class="level">
+        <span class="level-num">02</span>
+        <div>
+          <span class="level-label">Rules</span>
+          <h3 class="level-title">Even if it tries, the system refuses.</h3>
+          <p class="level-body">Rules live in the runtime, not in prompt text. When the agent calls an action that violates a rule, execution stops and returns an error. No \"best effort\" behavior, no silent fallback.</p>
+          <div class="level-example">
+            <strong>Agent:</strong> can_refund({ amount: 800, customer: "cust_99" })
+            <span class="blocked">// Error: Requires approval - execution stopped</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="level">
+        <span class="level-num">03</span>
+        <div>
+          <span class="level-label">Guardrails</span>
+          <h3 class="level-title">Set hard limits for edge cases and abuse paths.</h3>
+          <p class="level-body">Use system-level caps like volume thresholds, rate limits, and anomaly triggers. When a guardrail is hit, execution stops and your team is notified immediately.</p>
+          <div class="level-example">
+            <strong>Example:</strong> a conversation fetches more than 1,000 objects in a single session.
+            <span class="blocked">// Guardrail triggered - execution blocked, dev notified</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section code-section reveal" id="code-path">
+  <div class="container">
+    <h2 class="code-lead">By defining a world your agent can't escape.</h2>
+    <div class="code-group">
+      <span class="col-label">Model your domain</span>
+      <div class="code-win">
+        <div class="code-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <span class="code-fname">granular.json</span>
+        </div>
+        <div class="code-body"><span class="cln">1</span>{
+<span class="cln">2</span>  <span class="s">"operations"</span>: [
+<span class="cln">3</span>    {
+<span class="cln">4</span>      <span class="s">"create"</span>: <span class="s">"customer"</span>,
+<span class="cln">5</span>      <span class="s">"extends"</span>: <span class="s">"@std/class"</span>,
+<span class="cln">6</span>      <span class="s">"has"</span>: {
+<span class="cln">7</span>        <span class="s">"plan"</span>:  { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"description"</span>: <span class="s">"free | paid | enterprise"</span> },
+<span class="cln">8</span>        <span class="s">"flags"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span> }
+<span class="cln">9</span>      }
+<span class="cln">10</span>    },
+<span class="cln">11</span>    {
+<span class="cln">12</span>      <span class="s">"create"</span>: <span class="s">"refund"</span>,
+<span class="cln">13</span>      <span class="s">"extends"</span>: <span class="s">"@std/class"</span>,
+<span class="cln">14</span>      <span class="s">"has"</span>: {
+<span class="cln">15</span>        <span class="s">"amount"</span>: { <span class="s">"type"</span>: <span class="s">"number"</span> },
+<span class="cln">16</span>        <span class="s">"status"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"description"</span>: <span class="s">"pending | approved | rejected"</span> }
+<span class="cln">17</span>      }
+<span class="cln">18</span>    },
+<span class="cln">19</span>    {
+<span class="cln">20</span>      <span class="s">"defineRelationship"</span>: {
+<span class="cln">21</span>        <span class="s">"left"</span>: <span class="s">"customer"</span>,
+<span class="cln">22</span>        <span class="s">"right"</span>: <span class="s">"refund"</span>,
+<span class="cln">23</span>        <span class="s">"leftIsMany"</span>: <span class="k">false</span>,
+<span class="cln">24</span>        <span class="s">"rightIsMany"</span>: <span class="k">true</span>
+<span class="cln">25</span>      }
+<span class="cln">26</span>    }
+<span class="cln">27</span>  ]
+<span class="cln">28</span>}</div>
+      </div>
+
+      <span class="col-label">Set your rules</span>
+      <div class="code-win">
+        <div class="code-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <span class="code-fname">granular-effects.ts</span>
+        </div>
+        <div class="code-body"><span class="cln">1</span><span class="k">await</span> env.<span class="fn">publishEffects</span>([
+<span class="cln">2</span>  {
+<span class="cln">3</span>    name: <span class="s">'can_refund'</span>, className: <span class="s">'customer'</span>,
+<span class="cln">4</span>    handler: <span class="k">async</span> (id, { amount }) => {
+<span class="cln">5</span>      <span class="k">const</span> c = <span class="k">await</span> Customer.<span class="fn">find</span>({ id });
+<span class="cln">6</span>      <span class="k">if</span> (c.plan === <span class="s">'free'</span>)
+<span class="cln">7</span>        <span class="k">throw</span> <span class="fn">Error</span>(<span class="s">'Not permitted'</span>);
+<span class="cln">8</span>      <span class="k">if</span> (amount > <span class="n">500</span> && c.plan !== <span class="s">'enterprise'</span>)
+<span class="cln">9</span>        <span class="k">throw</span> <span class="fn">Error</span>(<span class="s">'Requires approval'</span>);
+<span class="cln">10</span>      <span class="k">return</span> { permitted: <span class="k">true</span> };
+<span class="cln">11</span>    },
+<span class="cln">12</span>  },
+<span class="cln">13</span>  {
+<span class="cln">14</span>    name: <span class="s">'approve'</span>, className: <span class="s">'refund'</span>,
+<span class="cln">15</span>    handler: <span class="k">async</span> (id) => {
+<span class="cln">16</span>      <span class="k">const</span> r = <span class="k">await</span> Refund.<span class="fn">find</span>({ id });
+<span class="cln">17</span>      <span class="k">return</span> r.<span class="fn">update</span>({ status: <span class="s">'approved'</span> });
+<span class="cln">18</span>    },
+<span class="cln">19</span>  }
+<span class="cln">20</span>]);</div>
+      </div>
+
+      <span class="col-label">Let your agent code inside</span>
+      <div class="code-win">
+        <div class="code-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <span class="code-fname">sandbox-tools.d.ts</span>
+          <span class="code-hint">auto-generated</span>
+        </div>
+        <div class="code-body"><span class="cln">1</span><span class="cm">// Auto-generated - DO NOT EDIT</span>
+<span class="cln">2</span>
+<span class="cln">3</span><span class="k">export declare class</span> <span class="fn">Customer</span> {
+<span class="cln">4</span>  <span class="k">readonly</span> plan:  <span class="s">string</span>;  <span class="cm">// "free" | "paid" | "enterprise"</span>
+<span class="cln">5</span>  <span class="k">readonly</span> flags: <span class="s">string</span>[];
+<span class="cln">6</span>  <span class="k">static</span> <span class="fn">find</span>(query: { id: <span class="s">string</span> }): <span class="fn">Promise</span>&lt;Customer&gt;;
+<span class="cln">7</span>  <span class="fn">get_refunds</span>(): <span class="fn">Promise</span>&lt;Refund[]&gt;;
+<span class="cln">8</span>  <span class="fn">can_refund</span>(params: { amount: <span class="s">number</span> }): <span class="fn">Promise</span>&lt;{ permitted: <span class="s">boolean</span> }&gt;;
+<span class="cln">9</span>}
+<span class="cln">10</span>
+<span class="cln">11</span><span class="k">export declare class</span> <span class="fn">Refund</span> {
+<span class="cln">12</span>  <span class="k">readonly</span> amount: <span class="s">number</span>;
+<span class="cln">13</span>  <span class="k">readonly</span> status: <span class="s">string</span>;
+<span class="cln">14</span>  <span class="k">static</span> <span class="fn">find</span>(query: { id: <span class="s">string</span> }): <span class="fn">Promise</span>&lt;Refund&gt;;
+<span class="cln">15</span>  <span class="fn">approve</span>(): <span class="fn">Promise</span>&lt;Refund&gt;;
+<span class="cln">16</span>}</div>
+      </div>
+
+      <span class="col-label">And Granular takes care of the rest</span>
+      <div class="code-win">
+        <div class="code-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <span class="code-fname">agent.ts</span>
+          <span class="code-hint" style="color:#78a886;">✓ permitted</span>
+        </div>
+        <div class="code-body"><span class="cln">1</span><span class="k">const</span> acme = <span class="k">await</span> Customer.<span class="fn">find</span>({ id: <span class="s">'cust_42'</span> });  <span class="cm">// plan: "paid"</span>
+<span class="cln">2</span><span class="k">await</span> acme.<span class="fn">can_refund</span>({ amount: <span class="n">300</span> });
+<span class="cln">3</span><span class="cm">// { permitted: true }</span>
+<span class="cln">4</span>
+<span class="cln">5</span><span class="k">const</span> refunds = <span class="k">await</span> acme.<span class="fn">get_refunds</span>();
+<span class="cln">6</span><span class="k">await</span> refunds[<span class="n">0</span>].<span class="fn">approve</span>();
+<span class="cln">7</span><span class="cm">// { status: "approved" }</span></div>
+      </div>
+
+      <div class="code-win">
+        <div class="code-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <span class="code-fname">agent.ts</span>
+          <span class="code-hint" style="color:#c07a7a;">✗ blocked</span>
+        </div>
+        <div class="code-body"><span class="cln">1</span><span class="k">const</span> free = <span class="k">await</span> Customer.<span class="fn">find</span>({ id: <span class="s">'cust_99'</span> });  <span class="cm">// plan: "free"</span>
+<span class="cln">2</span><span class="k">await</span> free.<span class="fn">can_refund</span>({ amount: <span class="n">300</span> });
+<span class="cln">3</span><span class="err">// Error: Not permitted</span>
+<span class="cln">4</span>
+<span class="cln">5</span><span class="k">await</span> acme.<span class="fn">can_refund</span>({ amount: <span class="n">800</span> });
+<span class="cln">6</span><span class="err">// Error: Requires approval</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="end reveal">
+  <div class="container">
+    <h2>Start modeling <em>your agent world.</em></h2>
+    <div class="cta-group" style="justify-content:center;">
+      <a href="https://docs.granular.dev" class="btn btn-primary">Read the docs →</a>
+      <a href="https://www.npmjs.com/package/@granular-software/sdk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-command">bun add @granular-software/sdk</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
