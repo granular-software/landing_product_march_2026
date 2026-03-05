@@ -12,9 +12,9 @@
 
   :root {
     --bg: #f3ede5;
-    --surface: #f9f4ee;
-    --surface-strong: #fcf8f2;
-    --card-bg: #fbf7f2;
+    --surface: #fcf8f3;
+    --surface-strong: #fffdf9;
+    --card-bg: #fefbf7;
     --ink: #131111;
     --muted: #645f5b;
     --muted-strong: #504b47;
@@ -243,7 +243,7 @@
 
   .hero {
     position: relative;
-    padding-block: clamp(86px, 13vw, 176px) clamp(84px, 10vw, 128px);
+    padding-block: clamp(98px, 14vw, 198px) clamp(96px, 11vw, 144px);
   }
 
   .hero::before {
@@ -260,17 +260,17 @@
     z-index: 1;
     display: grid;
     gap: clamp(1.4rem, 2.8vw, 2.25rem);
-    max-width: 900px;
+    max-width: 980px;
   }
 
   .hero-h1 {
     margin: 0;
     font-family: var(--font-display);
-    font-size: var(--step-4);
-    line-height: 1.04;
+    font-size: clamp(2.75rem, 6.1vw, 5.4rem);
+    line-height: 1.01;
     letter-spacing: -0.02em;
     font-weight: 500;
-    max-width: 24ch;
+    max-width: 21ch;
   }
 
   .hero-h1 em {
@@ -376,6 +376,16 @@
     border-color: var(--ink);
     background: color-mix(in srgb, white 28%, var(--surface-strong) 72%);
     transform: translateY(-1px);
+  }
+
+  .incident-item.is-hidden {
+    display: none;
+  }
+
+  .incidents-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.1rem;
   }
 
   .problem .display {
@@ -621,8 +631,8 @@
     .nav-links::-webkit-scrollbar { display: none; }
 
     .hero {
-      padding-top: 72px;
-      padding-bottom: 76px;
+      padding-top: 84px;
+      padding-bottom: 92px;
     }
 
     .hero-h1 {
@@ -671,7 +681,7 @@
     .cta-group { gap: 0.6rem; }
 
     .hero-h1 {
-      font-size: clamp(2.15rem, 9.5vw, 2.9rem);
+      font-size: clamp(2.35rem, 10.2vw, 3.25rem);
       max-width: 16ch;
     }
 
@@ -744,7 +754,7 @@
 <section class="section incidents reveal" id="incidents">
   <div class="container">
     <span class="eyebrow">This is not theoretical.</span>
-    <ul class="incident-list">
+    <ul class="incident-list" id="incidentsList">
       <li class="incident-item">
         <div class="incident-head">
           <div>
@@ -794,6 +804,9 @@
         </div>
       </li>
     </ul>
+    <div class="incidents-actions">
+      <button type="button" class="btn btn-ghost" id="toggleIncidentsBtn" hidden>Show more incidents</button>
+    </div>
   </div>
 </section>
 
@@ -1004,6 +1017,40 @@
   } else {
     document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
   }
+
+  const incidentRows = Array.from(document.querySelectorAll('#incidentsList .incident-item'));
+  const toggleIncidentsBtn = document.getElementById('toggleIncidentsBtn');
+  const visibleRows = 3;
+  let incidentsExpanded = false;
+
+  function renderIncidents() {
+    if (!toggleIncidentsBtn) return;
+
+    if (incidentRows.length <= visibleRows) {
+      toggleIncidentsBtn.hidden = true;
+      toggleIncidentsBtn.setAttribute('aria-expanded', 'false');
+      incidentRows.forEach((row) => row.classList.remove('is-hidden'));
+      return;
+    }
+
+    incidentRows.forEach((row, index) => {
+      const shouldHide = !incidentsExpanded && index >= visibleRows;
+      row.classList.toggle('is-hidden', shouldHide);
+    });
+
+    toggleIncidentsBtn.hidden = false;
+    toggleIncidentsBtn.textContent = incidentsExpanded ? 'Show fewer incidents' : 'Show more incidents';
+    toggleIncidentsBtn.setAttribute('aria-expanded', String(incidentsExpanded));
+  }
+
+  if (toggleIncidentsBtn) {
+    toggleIncidentsBtn.addEventListener('click', () => {
+      incidentsExpanded = !incidentsExpanded;
+      renderIncidents();
+    });
+  }
+
+  renderIncidents();
 </script>
 
 </body>
