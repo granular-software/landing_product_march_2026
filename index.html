@@ -20,14 +20,16 @@
     --muted-strong: #504b47;
     --line: #d9d2ca;
     --accent: #b6382a;
+    --accent-deep: #962a1f;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 18px;
     --card-border: 1px solid var(--line);
     --card-shadow: 0 14px 30px rgba(19, 17, 17, 0.06);
+    --card-radius: 14px;
 
-    --container: 980px;
-    --section-space: clamp(64px, 8vw, 118px);
+    --container: 1080px;
+    --section-space: clamp(74px, 9vw, 136px);
     --reading-width: 66ch;
 
     --font-body: 'Manrope', sans-serif;
@@ -47,10 +49,10 @@
     margin: 0;
     font-family: var(--font-body);
     background:
-      radial-gradient(circle at 12% 0%, #faf7f2 0%, var(--bg) 38%),
-      radial-gradient(circle at 88% 14%, #efe6db 0%, transparent 34%) fixed;
+      radial-gradient(circle at 12% 0%, #fefaf3 0%, var(--bg) 36%),
+      radial-gradient(circle at 84% 12%, #efe4d7 0%, transparent 36%) fixed;
     color: var(--ink);
-    line-height: 1.72;
+    line-height: 1.68;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -81,25 +83,37 @@
   .display {
     margin: 0;
     font-family: var(--font-display);
-    font-size: var(--step-3);
-    line-height: 1.16;
-    letter-spacing: -0.016em;
+    font-size: clamp(2.15rem, 1.82rem + 1.95vw, 3.52rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
     font-weight: 500;
     text-wrap: balance;
     max-width: 20ch;
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 780px;
+  }
+
+  .section-head--center {
+    margin-inline: auto;
+    justify-items: center;
+    text-align: center;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 46px;
-    padding: 0.82rem 1.35rem;
+    min-height: 50px;
+    padding: 0.88rem 1.4rem;
     border: 1px solid transparent;
     text-decoration: none;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -114,6 +128,7 @@
   .btn-primary:focus-visible {
     background: var(--accent);
     transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(182, 56, 42, 0.26);
   }
 
   .btn-ghost {
@@ -126,15 +141,6 @@
   .btn-ghost:focus-visible {
     border-color: var(--ink);
     transform: translateY(-1px);
-  }
-
-  .btn-command {
-    font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding-inline: 1rem;
   }
 
   .cta-group {
@@ -167,14 +173,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 72px;
-    gap: 1.1rem;
+    min-height: 74px;
+    gap: 1.25rem;
   }
 
   .nav-main {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
+    gap: 1rem;
     margin-left: auto;
     min-width: 0;
   }
@@ -192,8 +198,8 @@
   .nav-links a {
     color: var(--muted-strong);
     text-decoration: none;
-    font-size: 0.76rem;
-    letter-spacing: 0.06em;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 700;
     white-space: nowrap;
@@ -229,11 +235,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 36px;
-    padding: 0.45rem 0.82rem;
+    min-height: 40px;
+    padding: 0.5rem 0.92rem;
     border: 1px solid color-mix(in srgb, var(--line) 84%, #b8b0a8 16%);
     border-radius: var(--radius-sm);
     background: color-mix(in srgb, white 26%, var(--surface-strong) 74%);
+    box-shadow: 0 8px 18px rgba(19, 17, 17, 0.04);
   }
 
   .nav-doc:hover {
@@ -241,9 +248,15 @@
     background: color-mix(in srgb, white 34%, var(--surface-strong) 66%);
   }
 
+  .waitlist-trigger {
+    appearance: none;
+    font: inherit;
+    cursor: pointer;
+  }
+
   .hero {
     position: relative;
-    padding-block: clamp(98px, 14vw, 198px) clamp(96px, 11vw, 144px);
+    padding-block: clamp(98px, 12.4vw, 184px) clamp(108px, 11.5vw, 160px);
   }
 
   .hero::before {
@@ -259,18 +272,19 @@
     position: relative;
     z-index: 1;
     display: grid;
-    gap: clamp(1.4rem, 2.8vw, 2.25rem);
-    max-width: 980px;
+    gap: clamp(1.2rem, 2vw, 1.9rem);
+    max-width: 780px;
   }
 
   .hero-h1 {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 6.1vw, 5.4rem);
-    line-height: 1.01;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.8rem, 5.7vw, 5.2rem);
+    line-height: 0.92;
+    letter-spacing: -0.046em;
     font-weight: 500;
-    max-width: 21ch;
+    max-width: 12.8ch;
+    text-wrap: balance;
   }
 
   .hero-h1 em {
@@ -278,14 +292,20 @@
     font-style: italic;
   }
 
+  .hero-line {
+    white-space: nowrap;
+    display: block;
+    margin-bottom: 0.06em;
+  }
+
   .hero-sub {
-    font-size: var(--step-1);
-    max-width: var(--reading-width);
-    line-height: 1.62;
+    font-size: clamp(1.14rem, 1.01rem + 0.45vw, 1.42rem);
+    max-width: 39ch;
+    line-height: 1.58;
     color: var(--muted-strong);
   }
 
-  .hero .cta-group { margin-top: 0.15rem; }
+  .hero .cta-group { margin-top: 0.7rem; }
 
   .no-wrap-strong {
     white-space: nowrap;
@@ -300,9 +320,9 @@
     margin: 0;
     padding: 0;
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--card-radius);
     background: var(--card-bg);
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 18px 40px rgba(19, 17, 17, 0.08);
     overflow: hidden;
   }
 
@@ -347,10 +367,10 @@
     margin: 0;
     font-family: var(--font-display);
     font-size: clamp(1.16rem, 1.02rem + 0.35vw, 1.34rem);
-    line-height: 1.34;
+    line-height: 1.3;
     color: var(--ink);
     max-width: 46ch;
-    font-weight: 500;
+    font-weight: 600;
     text-wrap: pretty;
   }
 
@@ -389,56 +409,38 @@
   }
 
   .problem .display {
-    font-size: clamp(1.75rem, 1.45rem + 1.2vw, 2.55rem);
-    max-width: 22ch;
+    font-size: clamp(2.12rem, 1.8rem + 1.3vw, 3rem);
+    max-width: 24ch;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .problem em,
-  .interlude-text em,
   .end h2 em { color: var(--accent); font-style: italic; }
 
-  .playground-sub,
-  .interlude-text {
+  .playground-sub {
     margin-top: 0.9rem;
     color: var(--muted-strong);
     font-size: var(--step-0);
-    max-width: var(--reading-width);
-    line-height: 1.68;
-  }
-
-  .interlude-panel {
-    background: var(--card-bg);
-    border: var(--card-border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--card-shadow);
-    padding: clamp(1.2rem, 2.8vw, 2rem);
-    border-top: 3px solid var(--accent);
-  }
-
-  .interlude-text {
-    margin-top: 0;
-    font-size: var(--step-1);
-    line-height: 1.65;
-    color: var(--ink);
-    font-weight: 600;
-    max-width: 58ch;
+    max-width: 62ch;
+    line-height: 1.72;
   }
 
   .levels {
     margin-top: 2rem;
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: calc(var(--card-radius) + 2px);
     background: var(--card-bg);
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 22px 44px rgba(19, 17, 17, 0.085);
     overflow: hidden;
   }
 
   .level {
-    padding: clamp(1.2rem, 3vw, 2rem);
+    padding: clamp(1.3rem, 3vw, 2.15rem);
     border-top: 1px solid var(--line);
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.15rem;
   }
 
   .level:first-child { border-top: 0; }
@@ -463,11 +465,11 @@
   .level-title {
     margin: 0 0 0.7rem;
     font-family: var(--font-display);
-    font-size: var(--step-2);
-    line-height: 1.2;
+    font-size: clamp(1.5rem, 1.3rem + 0.52vw, 1.92rem);
+    line-height: 1.12;
     color: var(--ink);
     font-weight: 500;
-    max-width: 26ch;
+    max-width: 24ch;
   }
 
   .level-body {
@@ -479,7 +481,7 @@
 
   .level-example {
     margin-top: 1rem;
-    padding: 0.92rem 1rem;
+    padding: 1rem 1.05rem;
     border: var(--card-border);
     border-radius: var(--radius-sm);
     background: color-mix(in srgb, var(--surface) 78%, white 22%);
@@ -501,84 +503,189 @@
     font-weight: 600;
   }
 
-  .code-lead {
-    max-width: 22ch;
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1.85rem, 1.54rem + 1.45vw, 2.8rem);
-    line-height: 1.1;
-    letter-spacing: -0.016em;
-    font-weight: 500;
+  .stack-section { padding-block: var(--section-space); border-top: 1px solid var(--line); }
+
+  .stack {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: calc(var(--card-radius) + 2px);
+    overflow: hidden;
+    border: var(--card-border);
+    box-shadow: 0 22px 44px rgba(19, 17, 17, 0.09);
+    background: color-mix(in srgb, var(--surface-strong) 76%, white 24%);
   }
 
-  .code-group { margin-top: 0.9rem; }
+  .stack-layer-inner {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1.5rem;
+    padding: 1.65rem 1.8rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-  .col-label {
-    display: inline-block;
-    margin: 2.1rem 0 0.85rem;
-    font-size: 0.76rem;
+  .stack-layer--4 .stack-layer-inner { background: #f0ece4; }
+  .stack-layer--3 .stack-layer-inner { background: #e9e4db; }
+  .stack-layer--2 .stack-layer-inner { background: #e2dcd2; }
+  .stack-layer--1 .stack-layer-inner { background: #dad4c9; border-bottom: none; }
+
+  .stack-arrow {
+    text-align: center;
+    padding: 0.38rem 0 0.32rem;
+    font-size: 0.68rem;
+    color: var(--line);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stack-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.1rem;
+    align-self: start;
+  }
+
+  .stack-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+
+  .stack-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+
+  .stack-title {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.22rem, 1.12rem + 0.32vw, 1.44rem);
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .stack-body {
+    font-size: 0.97rem;
+    line-height: 1.72;
+    color: var(--muted-strong);
+    max-width: 56ch;
+  }
+
+  .stack-agent {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.15rem 1.8rem;
+    background: var(--ink);
+    color: var(--bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .stack-agent-label {
+    font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 700;
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 10%, white 90%);
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line) 70%);
-    border-radius: 999px;
-    padding: 0.34rem 0.72rem;
+    white-space: nowrap;
   }
 
-  .code-win {
-    border: 1px solid var(--ink);
-    border-radius: var(--radius-sm);
-    background: var(--ink);
-    box-shadow: 0 16px 34px rgba(19, 17, 17, 0.2);
-    margin-bottom: 0.8rem;
+  .stack-agent-desc {
+    font-size: 0.75rem;
+    color: #d5d0c8;
+    letter-spacing: 0.02em;
+  }
+
+  .prompt-section { padding-block: var(--section-space); border-top: 1px solid var(--line); }
+
+  .prompt-win {
+    margin-top: 2rem;
+    border-radius: calc(var(--card-radius) + 2px);
     overflow: hidden;
+    border: 1px solid #252523;
+    background: #0f0f0e;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.3);
   }
 
-  .code-bar {
+  .prompt-bar {
     background: #181816;
     border-bottom: 1px solid #252523;
-    padding: 0.6rem 1rem;
+    padding: 0.72rem 1.1rem;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
   }
 
-  .d { width: 9px; height: 9px; border-radius: 50%; }
-  .dr { background: #dc6b5a; }
-  .dy { background: #d4a040; }
-  .dg { background: #68a868; }
-
-  .code-fname {
-    font-size: 0.67rem;
+  .prompt-bar-title {
+    font-size: 0.68rem;
     color: #79766f;
     margin-left: 6px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     flex: 1;
   }
 
-  .code-hint {
-    color: #9f9c95;
-    font-size: 0.65rem;
+  .prompt-bar-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #78a886;
+    border: 1px solid #2e4a36;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
   }
 
-  .code-body {
-    padding: 1.2rem 1.4rem;
-    font-size: 0.78rem;
-    line-height: 1.78;
+  .prompt-body {
+    padding: 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .prompt-block-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #56544f;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .prompt-block-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #252523;
+  }
+
+  .prompt-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.76rem;
+    line-height: 1.76;
+    color: #b8b4ac;
     white-space: pre;
     overflow-x: auto;
-    color: #b8b4ac;
   }
 
-  .code-body .cln { display: inline-block; width: 1.8rem; color: #2e2e2c; user-select: none; }
-  .code-body .k { color: #9a7ac8; }
-  .code-body .s { color: #8fc49a; }
-  .code-body .n { color: #d4a86a; }
-  .code-body .cm { color: #56544f; }
-  .code-body .fn { color: #d4a86a; }
-  .code-body .err { color: #b83a24; }
+  .prompt-code .pk { color: #9a7ac8; }
+  .prompt-code .ps { color: #8fc49a; }
+  .prompt-code .pm { color: #56544f; }
+  .prompt-code .pn { color: #d4a86a; }
+  .prompt-code .pdim { color: #3a3a38; }
+
+  .prompt-fade {
+    text-align: center;
+    padding: 0.8rem 0 0.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: #3a3a38;
+    text-transform: uppercase;
+  }
 
   .end {
     border-top: 1px solid var(--line);
@@ -588,12 +695,189 @@
 
   .end h2 {
     margin: 0 auto 2rem;
-    max-width: 16ch;
+    max-width: 18ch;
     font-family: var(--font-display);
-    font-size: var(--step-3);
-    line-height: 1.06;
+    font-size: clamp(2.1rem, 1.8rem + 1.4vw, 3.1rem);
+    line-height: 1.03;
     letter-spacing: -0.018em;
     font-weight: 500;
+  }
+
+  .waitlist-modal[hidden] {
+    display: none;
+  }
+
+  .waitlist-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+  }
+
+  .waitlist-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 17, 17, 0.36);
+    backdrop-filter: blur(8px);
+  }
+
+  .waitlist-panel {
+    position: relative;
+    width: min(620px, 100%);
+    background: color-mix(in srgb, var(--surface-strong) 78%, white 22%);
+    border: var(--card-border);
+    border-radius: calc(var(--card-radius) + 4px);
+    box-shadow: 0 28px 60px rgba(19, 17, 17, 0.18);
+    overflow: hidden;
+  }
+
+  .waitlist-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, white 26%, var(--surface) 74%);
+  }
+
+  .waitlist-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .waitlist-close {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted-strong);
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .waitlist-close:hover,
+  .waitlist-close:focus-visible {
+    border-color: var(--ink);
+    color: var(--ink);
+    background: color-mix(in srgb, white 34%, var(--surface-strong) 66%);
+  }
+
+  .waitlist-content {
+    padding: clamp(1.35rem, 3vw, 2rem);
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .waitlist-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.45rem + 1vw, 2.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    max-width: 11ch;
+  }
+
+  .waitlist-copy {
+    color: var(--muted-strong);
+    font-size: var(--step-0);
+    line-height: 1.72;
+    max-width: 52ch;
+  }
+
+  .waitlist-form {
+    display: grid;
+    gap: 0.95rem;
+  }
+
+  .field-grid {
+    display: grid;
+    gap: 0.95rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .field label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-strong);
+  }
+
+  .field input {
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--line) 88%, #beb6ae 12%);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--ink);
+    min-height: 52px;
+    padding: 0.9rem 0.95rem;
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+
+  .field input:hover {
+    border-color: color-mix(in srgb, var(--line) 70%, #bdb4ab 30%);
+  }
+
+  .field input::placeholder {
+    color: color-mix(in srgb, var(--muted) 72%, white 28%);
+  }
+
+  .field input:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--accent) 58%, var(--line) 42%);
+    box-shadow: 0 0 0 4px rgba(182, 56, 42, 0.08);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .field-note {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .waitlist-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .waitlist-meta {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .waitlist-status {
+    min-height: 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--muted-strong);
+  }
+
+  .waitlist-status.is-error {
+    color: var(--accent);
+  }
+
+  .waitlist-status.is-success {
+    color: #2f6a41;
   }
 
   .reveal {
@@ -613,12 +897,12 @@
 
     .nav-inner {
       min-height: 66px;
-      gap: 0.8rem;
+      gap: 0.7rem;
     }
 
     .nav-main {
       min-width: 0;
-      gap: 0.7rem;
+      gap: 0.55rem;
     }
 
     .nav-links {
@@ -632,18 +916,20 @@
 
     .hero {
       padding-top: 84px;
-      padding-bottom: 92px;
+      padding-bottom: 90px;
     }
 
     .hero-h1 {
-      max-width: 20ch;
-      line-height: 1.04;
+      max-width: 12.8ch;
+      line-height: 0.94;
     }
 
+    .hero-line { white-space: normal; }
+
     .hero-sub {
-      font-size: var(--step-0);
-      max-width: 60ch;
-      line-height: 1.66;
+      font-size: clamp(1.04rem, 0.98rem + 0.25vw, 1.18rem);
+      max-width: 34ch;
+      line-height: 1.56;
     }
 
     .incident-head {
@@ -654,6 +940,23 @@
     .source-link { justify-self: start; }
 
     .level { grid-template-columns: 1fr; }
+
+    .stack-layer-inner {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      padding: 1.25rem;
+    }
+
+    .stack-agent {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .section-head {
+      max-width: 100%;
+    }
   }
 
   @media (max-width: 520px) {
@@ -661,7 +964,7 @@
 
     .nav-inner {
       min-height: 62px;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
     .wordmark {
@@ -669,11 +972,11 @@
       letter-spacing: 0.12em;
     }
 
-    .nav-main { gap: 0.5rem; }
+    .nav-main { gap: 0.45rem; }
 
     .nav-links a {
-      font-size: 0.7rem;
-      letter-spacing: 0.05em;
+      font-size: 0.68rem;
+      letter-spacing: 0.045em;
     }
 
     .incident-item { padding: 0.95rem; }
@@ -681,29 +984,48 @@
     .cta-group { gap: 0.6rem; }
 
     .hero-h1 {
-      font-size: clamp(2.35rem, 10.2vw, 3.25rem);
-      max-width: 16ch;
+      font-size: clamp(2.28rem, 10.7vw, 3.22rem);
+      max-width: 11.4ch;
+      line-height: 0.93;
     }
 
     .problem .display,
     .playground .display,
-    .code-lead,
+    .stack-section .display,
+    .prompt-section .display,
     .end h2 {
-      font-size: clamp(1.55rem, 7.5vw, 2.2rem);
-      line-height: 1.16;
+      font-size: clamp(1.82rem, 8.3vw, 2.54rem);
+      line-height: 1.08;
     }
 
-    .col-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.11em;
-      padding: 0.3rem 0.62rem;
+    .level-title,
+    .stack-title {
+      max-width: none;
     }
 
-    .code-body {
-      font-size: 0.72rem;
+    .waitlist-panel {
+      width: 100%;
+    }
+
+    .prompt-body {
       padding: 1rem;
     }
 
+    .prompt-code {
+      font-size: 0.68rem;
+    }
+
+    .field-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .waitlist-actions {
+      align-items: stretch;
+    }
+
+    .waitlist-actions .btn {
+      width: 100%;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -731,9 +1053,9 @@
         <li><a href="#incidents">Incidents</a></li>
         <li><a href="#risk">Risk</a></li>
         <li><a href="#solution">Solution</a></li>
-        <li><a href="#code-path">Code</a></li>
+        <li><a href="#code-path">How it works</a></li>
       </ul>
-      <a href="https://docs.granular.dev" class="nav-doc">Docs →</a>
+      <button type="button" class="nav-doc waitlist-trigger js-open-waitlist">Join the waitlist</button>
     </div>
   </div>
 </nav>
@@ -741,12 +1063,12 @@
 <header class="hero">
   <div class="container hero-grid">
     <h1 class="hero-h1">
-      If your agent can do it,<br />
-      <em>you can be sure it will.</em>
+      <span class="hero-line">The moment an agent gets tools,</span>
+      <em>you lose control.</em>
     </h1>
-    <p class="hero-sub">You gave it tools. You gave it instructions. Somewhere in that combination is something you didn't think of. <span class="no-wrap-strong">There always is.</span></p>
+    <p class="hero-sub">Prompts just guide behavior. Granular is the world it <strong>can't escape.</strong></p>
     <div class="cta-group">
-      <a href="#solution" class="btn btn-primary">See how to make it impossible ↓</a>
+      <a href="#solution" class="btn btn-primary">Want to see how?</a>
     </div>
   </div>
 </header>
@@ -812,14 +1134,18 @@
 
 <section class="section problem reveal" id="risk">
   <div class="container">
-    <h2 class="display">The more complex your agent, <em>the more certain this becomes.</em></h2>
+    <div class="section-head section-head--center">
+      <h2 class="display">In this world, nothing is certain except death, taxes, and <em>probabilistic agents breaking on real systems.</em></h2>
+    </div>
   </div>
 </section>
 
 <section class="section playground reveal" id="solution">
   <div class="container">
-    <h2 class="display">What if you make it impossible by design?</h2>
-    <p class="playground-sub">Granular agents are constrained by three structural layers.</p>
+    <div class="section-head">
+      <h2 class="display">What if you make it impossible by design?</h2>
+      <p class="playground-sub">Granular defines your agent's world through three structural layers.</p>
+    </div>
 
     <div class="levels">
       <article class="level">
@@ -840,7 +1166,7 @@
         <div>
           <span class="level-label">Rules</span>
           <h3 class="level-title">Even if it tries, the system refuses.</h3>
-          <p class="level-body">Rules live in the runtime, not in prompt text. When the agent calls an action that violates a rule, execution stops and returns an error. No \"best effort\" behavior, no silent fallback.</p>
+          <p class="level-body">Rules live in the runtime, not in prompt text. When the agent calls an action that violates a rule, execution stops and returns an error. No "best effort" behavior, no silent fallback.</p>
           <div class="level-example">
             <strong>Agent:</strong> can_refund({ amount: 800, customer: "cust_99" })
             <span class="blocked">// Error: Requires approval - execution stopped</span>
@@ -864,127 +1190,129 @@
   </div>
 </section>
 
-<section class="section code-section reveal" id="code-path">
+<section class="section stack-section reveal" id="code-path">
   <div class="container">
-    <h2 class="code-lead">By defining a world your agent can't escape.</h2>
-    <div class="code-group">
-      <span class="col-label">Model your domain</span>
-      <div class="code-win">
-        <div class="code-bar">
-          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-          <span class="code-fname">granular.json</span>
+    <div class="section-head">
+      <h2 class="display">By defining a world your agent can't escape.</h2>
+      <p class="playground-sub">Four structural layers. Each one constrains what the agent can see, do, and execute.</p>
+    </div>
+
+    <div class="stack">
+      <div class="stack-layer stack-layer--1">
+        <div class="stack-arrow">↓</div>
+        <div class="stack-layer-inner">
+          <div class="stack-left">
+            <span class="stack-num">01</span>
+            <span class="stack-tag">Data</span>
+          </div>
+          <div>
+            <h3 class="stack-title">Domain</h3>
+            <p class="stack-body">You model your domain and import your data into Granular. Entities, properties, relationships. This is the ground truth your agent navigates. Not a prompt, not a description.</p>
+          </div>
         </div>
-        <div class="code-body"><span class="cln">1</span>{
-<span class="cln">2</span>  <span class="s">"operations"</span>: [
-<span class="cln">3</span>    {
-<span class="cln">4</span>      <span class="s">"create"</span>: <span class="s">"customer"</span>,
-<span class="cln">5</span>      <span class="s">"extends"</span>: <span class="s">"@std/class"</span>,
-<span class="cln">6</span>      <span class="s">"has"</span>: {
-<span class="cln">7</span>        <span class="s">"plan"</span>:  { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"description"</span>: <span class="s">"free | paid | enterprise"</span> },
-<span class="cln">8</span>        <span class="s">"flags"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span> }
-<span class="cln">9</span>      }
-<span class="cln">10</span>    },
-<span class="cln">11</span>    {
-<span class="cln">12</span>      <span class="s">"create"</span>: <span class="s">"refund"</span>,
-<span class="cln">13</span>      <span class="s">"extends"</span>: <span class="s">"@std/class"</span>,
-<span class="cln">14</span>      <span class="s">"has"</span>: {
-<span class="cln">15</span>        <span class="s">"amount"</span>: { <span class="s">"type"</span>: <span class="s">"number"</span> },
-<span class="cln">16</span>        <span class="s">"status"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"description"</span>: <span class="s">"pending | approved | rejected"</span> }
-<span class="cln">17</span>      }
-<span class="cln">18</span>    },
-<span class="cln">19</span>    {
-<span class="cln">20</span>      <span class="s">"defineRelationship"</span>: {
-<span class="cln">21</span>        <span class="s">"left"</span>: <span class="s">"customer"</span>,
-<span class="cln">22</span>        <span class="s">"right"</span>: <span class="s">"refund"</span>,
-<span class="cln">23</span>        <span class="s">"leftIsMany"</span>: <span class="k">false</span>,
-<span class="cln">24</span>        <span class="s">"rightIsMany"</span>: <span class="k">true</span>
-<span class="cln">25</span>      }
-<span class="cln">26</span>    }
-<span class="cln">27</span>  ]
-<span class="cln">28</span>}</div>
       </div>
 
-      <span class="col-label">Set your rules</span>
-      <div class="code-win">
-        <div class="code-bar">
-          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-          <span class="code-fname">granular-effects.ts</span>
+      <div class="stack-layer stack-layer--2">
+        <div class="stack-arrow">↓</div>
+        <div class="stack-layer-inner">
+          <div class="stack-left">
+            <span class="stack-num">02</span>
+            <span class="stack-tag">Actions</span>
+          </div>
+          <div>
+            <h3 class="stack-title">Effects</h3>
+            <p class="stack-body">On top of your domain, you attach effects. Actions that trigger real operations in external systems. The agent can only call what you have explicitly defined here.</p>
+          </div>
         </div>
-        <div class="code-body"><span class="cln">1</span><span class="k">await</span> env.<span class="fn">publishEffects</span>([
-<span class="cln">2</span>  {
-<span class="cln">3</span>    name: <span class="s">'can_refund'</span>, className: <span class="s">'customer'</span>,
-<span class="cln">4</span>    handler: <span class="k">async</span> (id, { amount }) => {
-<span class="cln">5</span>      <span class="k">const</span> c = <span class="k">await</span> Customer.<span class="fn">find</span>({ id });
-<span class="cln">6</span>      <span class="k">if</span> (c.plan === <span class="s">'free'</span>)
-<span class="cln">7</span>        <span class="k">throw</span> <span class="fn">Error</span>(<span class="s">'Not permitted'</span>);
-<span class="cln">8</span>      <span class="k">if</span> (amount > <span class="n">500</span> && c.plan !== <span class="s">'enterprise'</span>)
-<span class="cln">9</span>        <span class="k">throw</span> <span class="fn">Error</span>(<span class="s">'Requires approval'</span>);
-<span class="cln">10</span>      <span class="k">return</span> { permitted: <span class="k">true</span> };
-<span class="cln">11</span>    },
-<span class="cln">12</span>  },
-<span class="cln">13</span>  {
-<span class="cln">14</span>    name: <span class="s">'approve'</span>, className: <span class="s">'refund'</span>,
-<span class="cln">15</span>    handler: <span class="k">async</span> (id) => {
-<span class="cln">16</span>      <span class="k">const</span> r = <span class="k">await</span> Refund.<span class="fn">find</span>({ id });
-<span class="cln">17</span>      <span class="k">return</span> r.<span class="fn">update</span>({ status: <span class="s">'approved'</span> });
-<span class="cln">18</span>    },
-<span class="cln">19</span>  }
-<span class="cln">20</span>]);</div>
       </div>
 
-      <span class="col-label">Let your agent code inside</span>
-      <div class="code-win">
-        <div class="code-bar">
-          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-          <span class="code-fname">sandbox-tools.d.ts</span>
-          <span class="code-hint">auto-generated</span>
+      <div class="stack-layer stack-layer--3">
+        <div class="stack-arrow">↓</div>
+        <div class="stack-layer-inner">
+          <div class="stack-left">
+            <span class="stack-num">03</span>
+            <span class="stack-tag">Logic</span>
+          </div>
+          <div>
+            <h3 class="stack-title">Constraints</h3>
+            <p class="stack-body">On top of actions, you define the rules. What the agent can do with data, how it can use actions, what requires approval. Not instructions. Enforced at runtime.</p>
+          </div>
         </div>
-        <div class="code-body"><span class="cln">1</span><span class="cm">// Auto-generated - DO NOT EDIT</span>
-<span class="cln">2</span>
-<span class="cln">3</span><span class="k">export declare class</span> <span class="fn">Customer</span> {
-<span class="cln">4</span>  <span class="k">readonly</span> plan:  <span class="s">string</span>;  <span class="cm">// "free" | "paid" | "enterprise"</span>
-<span class="cln">5</span>  <span class="k">readonly</span> flags: <span class="s">string</span>[];
-<span class="cln">6</span>  <span class="k">static</span> <span class="fn">find</span>(query: { id: <span class="s">string</span> }): <span class="fn">Promise</span>&lt;Customer&gt;;
-<span class="cln">7</span>  <span class="fn">get_refunds</span>(): <span class="fn">Promise</span>&lt;Refund[]&gt;;
-<span class="cln">8</span>  <span class="fn">can_refund</span>(params: { amount: <span class="s">number</span> }): <span class="fn">Promise</span>&lt;{ permitted: <span class="s">boolean</span> }&gt;;
-<span class="cln">9</span>}
-<span class="cln">10</span>
-<span class="cln">11</span><span class="k">export declare class</span> <span class="fn">Refund</span> {
-<span class="cln">12</span>  <span class="k">readonly</span> amount: <span class="s">number</span>;
-<span class="cln">13</span>  <span class="k">readonly</span> status: <span class="s">string</span>;
-<span class="cln">14</span>  <span class="k">static</span> <span class="fn">find</span>(query: { id: <span class="s">string</span> }): <span class="fn">Promise</span>&lt;Refund&gt;;
-<span class="cln">15</span>  <span class="fn">approve</span>(): <span class="fn">Promise</span>&lt;Refund&gt;;
-<span class="cln">16</span>}</div>
       </div>
 
-      <span class="col-label">And Granular takes care of the rest</span>
-      <div class="code-win">
-        <div class="code-bar">
-          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-          <span class="code-fname">agent.ts</span>
-          <span class="code-hint" style="color:#78a886;">✓ permitted</span>
+      <div class="stack-layer stack-layer--4">
+        <div class="stack-arrow">↓</div>
+        <div class="stack-layer-inner">
+          <div class="stack-left">
+            <span class="stack-num">04</span>
+            <span class="stack-tag">Security</span>
+          </div>
+          <div>
+            <h3 class="stack-title">Role model</h3>
+            <p class="stack-body">You define roles and associate them to users. On every request, the agent's world is constructed from those roles. What a user cannot do, the agent cannot see or call.</p>
+          </div>
         </div>
-        <div class="code-body"><span class="cln">1</span><span class="k">const</span> acme = <span class="k">await</span> Customer.<span class="fn">find</span>({ id: <span class="s">'cust_42'</span> });  <span class="cm">// plan: "paid"</span>
-<span class="cln">2</span><span class="k">await</span> acme.<span class="fn">can_refund</span>({ amount: <span class="n">300</span> });
-<span class="cln">3</span><span class="cm">// { permitted: true }</span>
-<span class="cln">4</span>
-<span class="cln">5</span><span class="k">const</span> refunds = <span class="k">await</span> acme.<span class="fn">get_refunds</span>();
-<span class="cln">6</span><span class="k">await</span> refunds[<span class="n">0</span>].<span class="fn">approve</span>();
-<span class="cln">7</span><span class="cm">// { status: "approved" }</span></div>
       </div>
 
-      <div class="code-win">
-        <div class="code-bar">
-          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-          <span class="code-fname">agent.ts</span>
-          <span class="code-hint" style="color:#c07a7a;">✗ blocked</span>
+      <div class="stack-agent">
+        <span class="stack-agent-label">Your agent</span>
+        <span class="stack-agent-desc">Programs against this world. Cannot escape it.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section prompt-section reveal">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="display">This is what your agent actually receives.</h2>
+      <p class="playground-sub">On every request, Granular injects a structured execution context. Not a system prompt. A typed world.</p>
+    </div>
+
+    <div class="prompt-win">
+      <div class="prompt-bar">
+        <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+        <span class="prompt-bar-title">Injected Prompt Context</span>
+        <span class="prompt-bar-badge">live</span>
+      </div>
+      <div class="prompt-body">
+        <div class="prompt-block">
+          <div class="prompt-block-label">Session</div>
+          <div class="prompt-code"><span class="pdim">sandboxId:</span>  sbx_mm3djsdz9nrncs2mx
+<span class="pdim">userId:</span>     taylor_support
+<span class="pdim">userName:</span>   Taylor Support</div>
         </div>
-        <div class="code-body"><span class="cln">1</span><span class="k">const</span> free = <span class="k">await</span> Customer.<span class="fn">find</span>({ id: <span class="s">'cust_99'</span> });  <span class="cm">// plan: "free"</span>
-<span class="cln">2</span><span class="k">await</span> free.<span class="fn">can_refund</span>({ amount: <span class="n">300</span> });
-<span class="cln">3</span><span class="err">// Error: Not permitted</span>
-<span class="cln">4</span>
-<span class="cln">5</span><span class="k">await</span> acme.<span class="fn">can_refund</span>({ amount: <span class="n">800</span> });
-<span class="cln">6</span><span class="err">// Error: Requires approval</span></div>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Domain Types <span style="color:#3a3a38;font-size:0.58rem;letter-spacing:0.08em;">291 lines · auto-generated</span></div>
+          <div class="prompt-code"><span class="pk">export declare class</span> <span class="pn">Customer</span> {
+  <span class="pk">readonly</span> plan:  <span class="ps">string</span>;  <span class="pm">// "free" | "paid" | "enterprise"</span>
+  <span class="pk">readonly</span> flags: <span class="ps">string</span>[];
+  <span class="pk">static</span> <span class="pn">find</span>(query: { id: <span class="ps">string</span> }): <span class="pn">Promise</span>&lt;Customer&gt;;
+  <span class="pn">get_refunds</span>(): <span class="pn">Promise</span>&lt;Refund[]&gt;;
+  <span class="pn">can_refund</span>(params: { amount: <span class="ps">number</span> }): <span class="pn">Promise</span>&lt;{ permitted: <span class="ps">boolean</span> }&gt;;
+}
+
+<span class="pk">export declare class</span> <span class="pn">Refund</span> {
+  <span class="pk">readonly</span> amount: <span class="ps">number</span>;
+  <span class="pk">readonly</span> status: <span class="ps">string</span>;
+  <span class="pk">static</span> <span class="pn">find</span>(query: { id: <span class="ps">string</span> }): <span class="pn">Promise</span>&lt;Refund&gt;;
+  <span class="pn">approve</span>(): <span class="pn">Promise</span>&lt;Refund&gt;;
+}</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Effects</div>
+          <div class="prompt-code"><span class="pn">can_refund</span>  <span class="pm">// attached to Customer</span>
+<span class="pn">approve</span>     <span class="pm">// attached to Refund</span></div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Heap</div>
+          <div class="prompt-code"><span class="pdim">0 vars · 0 lists · 0 entries</span></div>
+        </div>
+
+        <div class="prompt-fade">···  conversation history  ···</div>
       </div>
     </div>
   </div>
@@ -994,11 +1322,53 @@
   <div class="container">
     <h2>Start modeling <em>your agent world.</em></h2>
     <div class="cta-group" style="justify-content:center;">
-      <a href="https://docs.granular.dev" class="btn btn-primary">Read the docs →</a>
-      <a href="https://www.npmjs.com/package/@granular-software/sdk" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-command">bun add @granular-software/sdk</a>
+      <button type="button" class="btn btn-primary waitlist-trigger js-open-waitlist">Join the waitlist</button>
     </div>
   </div>
 </section>
+
+<div class="waitlist-modal" id="waitlistModal" hidden>
+  <div class="waitlist-backdrop js-close-waitlist"></div>
+  <div class="waitlist-panel" role="dialog" aria-modal="true" aria-labelledby="waitlistTitle">
+    <div class="waitlist-topbar">
+      <span class="waitlist-kicker">Early Access</span>
+      <button type="button" class="waitlist-close js-close-waitlist" aria-label="Close waitlist form">×</button>
+    </div>
+    <div class="waitlist-content">
+      <div class="section-head">
+        <h2 class="waitlist-title" id="waitlistTitle">Join the Granular waitlist.</h2>
+        <p class="waitlist-copy">Leave your email and at least one profile so we know who to reach out to first. GitHub or Twitter is required.</p>
+      </div>
+
+      <form class="waitlist-form" id="waitlistForm" novalidate>
+        <div class="field">
+          <label for="waitlistEmail">Email address</label>
+          <input id="waitlistEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="waitlistGithub">GitHub link</label>
+            <input id="waitlistGithub" name="github" type="url" inputmode="url" placeholder="https://github.com/yourname" />
+          </div>
+
+          <div class="field">
+            <label for="waitlistTwitter">Twitter link</label>
+            <input id="waitlistTwitter" name="twitter" type="url" inputmode="url" placeholder="https://x.com/yourname" />
+          </div>
+        </div>
+
+        <p class="field-note">At least one of GitHub or Twitter is required.</p>
+        <p class="waitlist-status" id="waitlistStatus" aria-live="polite"></p>
+
+        <div class="waitlist-actions">
+          <button type="submit" class="btn btn-primary" id="waitlistSubmit">Join the waitlist</button>
+          <span class="waitlist-meta">We’ll use this to reach out when access opens.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1051,6 +1421,121 @@
   }
 
   renderIncidents();
+
+  const waitlistModal = document.getElementById('waitlistModal');
+  const waitlistForm = document.getElementById('waitlistForm');
+  const waitlistStatus = document.getElementById('waitlistStatus');
+  const waitlistSubmit = document.getElementById('waitlistSubmit');
+  const waitlistEmail = document.getElementById('waitlistEmail');
+  const waitlistGithub = document.getElementById('waitlistGithub');
+  const waitlistTwitter = document.getElementById('waitlistTwitter');
+  const waitlistOpeners = Array.from(document.querySelectorAll('.js-open-waitlist'));
+  const waitlistClosers = Array.from(document.querySelectorAll('.js-close-waitlist'));
+
+  function openWaitlist() {
+    if (!waitlistModal) return;
+    waitlistModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    window.setTimeout(() => waitlistEmail && waitlistEmail.focus(), 0);
+  }
+
+  function closeWaitlist() {
+    if (!waitlistModal) return;
+    waitlistModal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function setWaitlistStatus(message, tone) {
+    if (!waitlistStatus) return;
+    waitlistStatus.textContent = message;
+    waitlistStatus.classList.remove('is-error', 'is-success');
+    if (tone) waitlistStatus.classList.add(tone);
+  }
+
+  function isValidProfileUrl(value) {
+    if (!value) return true;
+    try {
+      const url = new URL(value);
+      return url.protocol === 'https:' || url.protocol === 'http:';
+    } catch {
+      return false;
+    }
+  }
+
+  waitlistOpeners.forEach((button) => button.addEventListener('click', openWaitlist));
+  waitlistClosers.forEach((button) => button.addEventListener('click', closeWaitlist));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && waitlistModal && !waitlistModal.hidden) {
+      closeWaitlist();
+    }
+  });
+
+  if (waitlistForm) {
+    waitlistForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const email = waitlistEmail.value.trim();
+      const github = waitlistGithub.value.trim();
+      const twitter = waitlistTwitter.value.trim();
+
+      if (!email) {
+        setWaitlistStatus('Email is required.', 'is-error');
+        waitlistEmail.focus();
+        return;
+      }
+
+      if (!github && !twitter) {
+        setWaitlistStatus('Add at least a GitHub or Twitter link.', 'is-error');
+        (waitlistGithub.value ? waitlistTwitter : waitlistGithub).focus();
+        return;
+      }
+
+      if (!isValidProfileUrl(github) || !isValidProfileUrl(twitter)) {
+        setWaitlistStatus('GitHub and Twitter links must be valid URLs.', 'is-error');
+        return;
+      }
+
+      waitlistSubmit.disabled = true;
+      waitlistSubmit.textContent = 'Joining...';
+      setWaitlistStatus('Sending your request...', '');
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            github,
+            twitter,
+            page: 'prod_landing',
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed');
+        }
+
+        waitlistForm.reset();
+        setWaitlistStatus('You are on the waitlist. We will be in touch.', 'is-success');
+        window.setTimeout(closeWaitlist, 900);
+      } catch (error) {
+        const isLocalRuntime =
+          window.location.protocol === 'file:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+
+        if (isLocalRuntime) {
+          setWaitlistStatus('Local test needs a server runtime for /api/waitlist. Use a serverless dev server, not just a static file.', 'is-error');
+        } else {
+          setWaitlistStatus('Could not submit right now. Try again in a minute.', 'is-error');
+        }
+      } finally {
+        waitlistSubmit.disabled = false;
+        waitlistSubmit.textContent = 'Join the waitlist';
+      }
+    });
+  }
 </script>
 
 </body>
